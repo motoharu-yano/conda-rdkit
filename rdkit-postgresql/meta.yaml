@@ -1,37 +1,87 @@
+{% set name = "rdkit-postgresql" %}
+{% set version = "2021.03.3" %}
+{% set filename = "Release_%s.tar.gz" % version.replace(".", "_") %}
+
 package:
-  name: rdkit-postgresql
-  version: {{ environ.get('GIT_DESCRIBE_TAG', 'LOCAL').replace("_", ".").replace("Release.","") }}.{{ environ.get('GIT_DESCRIBE_NUMBER', 0) }}
+  name: {{ name|lower }}
+  version: {{ version }}
 
 source:
-  git_url: https://github.com/rdkit/rdkit.git
-  git_rev: Release_2021_03
+  fn: {{ filename }}
+  url: https://github.com/rdkit/rdkit/archive/{{ filename }}
+  # versions 03.4 and 03.5 do not pass the tests - postgresql crashes
+  # 2021.03.1
+  #sha256: 9495f797a54ac70b3b6e12776de7d82acd7f7b5d5f0cc1f168c763215545610b
+  # 2021.03.2
+  #sha256: 9907a745405cc915c65504046e446199f8ad03d870714de57c27d3738f330fe4
+  # 2021.03.3
+  sha256: e95f07adaee9280df077cb147210ee75e16957d81687ab0836d62ebf1f6f715f
+  # 2021.03.4
+  #sha256: bed309df7f1e2ea25736a986cf951325681142ee49468b1c62d020a109d2ef52
+  # 2021.03.5
+  #sha256: ee7ed4189ab03cf805ab9db59121ab3ebcba4c799389d053046d7cab4dd8401e
 
 build:
   number: 0
 
 requirements:
   build:
+    - python {{ python }}                # [build_platform != target_platform]
+    - cross-python_{{ target_platform }} # [build_platform != target_platform]
+    - numpy                              # [build_platform != target_platform]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - cmake
-    - python
+    - jom   [win]
+    - make   [unix]
+    - pkg-config   [unix]
   host:
+    - python {{ python }}
     - libboost {{ libboost }}
     - boost-cpp
     - eigen
+    - freetype
+    - zlib
+    # you need to make sure that conda-forge is added as lower priority channel
+    # in this case build will take postgresql from conda-forge because dependent postgresql-plpython is only on conda-forge
+    # other packages will be taken from default channels as usual
+    # replacing channel with conda build -c conda-forge does not work
+    # it forces this channel for all the packages and cartridge fails to pass the tests
+    - postgresql {{ postgresql }}
+    - postgresql-plpython
+    # msys chunk with diffutils is needed for tests
     - msys2-conda-epoch >=20160418 [win]
     - m2-msys2-runtime [win]
     - m2-libiconv [win]
     - m2-libintl [win]
     - m2-diffutils [win]
     - m2-patch [win]
-    - postgresql {{ postgresql }}
-    - freetype
   run:
-    - postgresql  {{ postgresql }}
+    # drag python into dependencies - python version is needed for plpython and for rdkit 
+    # there are build issues for different combinations of rdkit version + postgresql + python where cartridge may crash on tests
+    # postgresql-plpython is also dragged into dependencies - better to install all extensions together with postgresql
+    - python {{ python }}
     - libboost {{ libboost }}
+    # you need to make sure that conda-forge is added as lower priority channel
+    # in this case build will take postgresql from conda-forge because dependent postgresql-plpython is only on conda-forge
+    # other packages will be taken from default channels as usual
+    # replacing channel with conda build -c conda-forge does not work
+    # it forces this channel for all the packages and cartridge fails to pass the tests
+    - postgresql {{ postgresql }}
+    - postgresql-plpython
     - freetype
+
+outputs:
+  - name: rdkit-postgresql
 
 about:
   home: http://rdkit.org
-  license: BSD
+  license: BSD-3-Clause
+  license_file: license.txt
+  summary: rdkit cartridge for postgresql. includes conda-forge version of postgresql and postgresql-plpython extension.
+  doc_url: http://www.rdkit.org/docs/index.html
+  dev_url: https://github.com/rdkit/rdkit
+
+extra:
+  recipe-maintainers:
+    - motoharu-yano
