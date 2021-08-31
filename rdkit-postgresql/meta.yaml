@@ -70,6 +70,7 @@ requirements:
     - postgresql {{ postgresql }}
     - postgresql-plpython
     - freetype
+    - tzdata
 
 outputs:
   - name: rdkit-postgresql
