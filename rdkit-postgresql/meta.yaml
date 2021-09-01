@@ -41,6 +41,8 @@ requirements:
     - boost-cpp
     - eigen
     - freetype
+    - tzcode          # [not win]
+    - tzdata          # [not win]
     - zlib
     # you need to make sure that conda-forge is added as lower priority channel
     # in this case build will take postgresql from conda-forge because dependent postgresql-plpython is only on conda-forge
@@ -70,7 +72,8 @@ requirements:
     - postgresql {{ postgresql }}
     - postgresql-plpython
     - freetype
-    - tzdata
+    - tzcode          # [not win]
+    - tzdata          # [not win]
 
 outputs:
   - name: rdkit-postgresql
