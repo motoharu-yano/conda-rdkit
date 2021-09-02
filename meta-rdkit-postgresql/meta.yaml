@@ -28,12 +28,8 @@ source:
 requirements:
   run:
     - python {{ python }}
-    - postgresql {{ postgresql }}
-    - postgresql-plpython
     - rdkit-postgresql
     - pgsql-gzip-postgresql
-    - tzcode          # [not win]
-    - tzdata          # [not win]
 
 outputs:
   - name: rdkit-postgresql
@@ -85,7 +81,7 @@ outputs:
       home: http://rdkit.org
       license: BSD-3-Clause
       license_file: rdkit_postgresql_src/license.txt
-      summary: rdkit cartridge for postgresql.
+      summary: rdkit cartridge for postgresql. includes conda-forge version of postgresql and postgresql-plpython extension.
       doc_url: http://www.rdkit.org/docs/index.html
       dev_url: https://github.com/rdkit/rdkit
 
@@ -133,7 +129,7 @@ outputs:
       home: https://github.com/pramsey/pgsql-gzip
       license: MIT License
       license_file: pgsql_gzip_postgresql_src/LICENSE.md
-      summary: gzip extension for postgresql.
+      summary: gzip extension for postgresql. includes conda-forge version of postgresql and postgresql-plpython extension.
       doc_url: https://github.com/motoharu-yano/pgsql-gzip/blob/master/README.md
       dev_url: https://github.com/motoharu-yano/pgsql-gzip
 
