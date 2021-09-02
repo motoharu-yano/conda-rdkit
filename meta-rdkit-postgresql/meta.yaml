@@ -27,7 +27,7 @@ source:
 
 requirements:
   build:
-    - python {{ python }} # [build_platform != target_platform]
+    - python {{ python }}
   host:
     - python {{ python }}
   run:
