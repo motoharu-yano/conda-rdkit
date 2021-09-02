@@ -26,6 +26,10 @@ source:
     folder: pgsql_gzip_postgresql_src
 
 requirements:
+  build:
+    - python {{ python }} # [build_platform != target_platform]
+  host:
+    - python {{ python }}
   run:
     - python {{ python }}
     - rdkit-postgresql
