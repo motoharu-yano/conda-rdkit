@@ -7,19 +7,9 @@ package:
   version: {{ version }}
 
 source:
-  - url: https://github.com/rdkit/rdkit/archive/{{ filename }}
-    # versions 03.4 and 03.5 do not pass the tests - postgresql crashes
-    # 2021.03.1
-    #sha256: 9495f797a54ac70b3b6e12776de7d82acd7f7b5d5f0cc1f168c763215545610b
-    # 2021.03.2
-    #sha256: 9907a745405cc915c65504046e446199f8ad03d870714de57c27d3738f330fe4
-    # 2021.03.3
-    sha256: e95f07adaee9280df077cb147210ee75e16957d81687ab0836d62ebf1f6f715f
-    # 2021.03.4
-    #sha256: bed309df7f1e2ea25736a986cf951325681142ee49468b1c62d020a109d2ef52
-    # 2021.03.5
-    #sha256: ee7ed4189ab03cf805ab9db59121ab3ebcba4c799389d053046d7cab4dd8401e
-    folder: rdkit_postgresql_src
+  - git_url: https://github.com/motoharu-yano/rdkit.git
+    git_tag: master
+    folder: Release_2021_03_3_pg_patch
 
   - git_url: https://github.com/motoharu-yano/pgsql-gzip.git
     git_tag: master
