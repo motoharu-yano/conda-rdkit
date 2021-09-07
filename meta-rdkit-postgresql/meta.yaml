@@ -8,8 +8,8 @@ package:
 
 source:
   - git_url: https://github.com/motoharu-yano/rdkit.git
-    git_tag: master
-    folder: Release_2021_03_3_pg_patch
+    git_tag: Release_2021_03_3_pg_patch
+    folder: rdkit_postgresql_src
 
   - git_url: https://github.com/motoharu-yano/pgsql-gzip.git
     git_tag: master
