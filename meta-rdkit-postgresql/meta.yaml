@@ -76,7 +76,7 @@ about:
   home: https://github.com/motoharu-yano/conda-rdkit
   license: 
   license_file: 
-  summary: meta package with conda-forge version of postgresql. contains postgresql-plpython, rdkit-postgresql, pgsql-gzip-postgresql extensions.
+  summary: meta package with custom build of postgresql based on conda-forge recipe. contains postgresql-plpython, rdkit-postgresql, pgsql-gzip-postgresql, citus extensions.
   doc_url: https://github.com/motoharu-yano/conda-rdkit/blob/master/README.rst
   dev_url: https://github.com/motoharu-yano/conda-rdkit
 
