@@ -16,7 +16,8 @@ source:
     folder: pgsql_gzip_postgresql_src
 
   - git_url: https://github.com/motoharu-yano/citus.git
-    git_tag: master
+    # v10.2.3
+    sha1: e19089503edf12e3bdd5919d32f5db1f5482d59f
     folder: citus_src
 
 build:
