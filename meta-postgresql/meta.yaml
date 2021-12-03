@@ -4,7 +4,7 @@
 
 package:
   name: {{ name|lower }}
-  version: {{ version }}
+  version: {{ version }}.2
 
 source:
   - git_url: https://github.com/motoharu-yano/rdkit.git
@@ -16,8 +16,7 @@ source:
     folder: pgsql_gzip_postgresql_src
 
   - git_url: https://github.com/motoharu-yano/citus.git
-    # v10.2.3
-    sha1: e19089503edf12e3bdd5919d32f5db1f5482d59f
+    git_tag: development_01122021
     folder: citus_src
 
 build:
@@ -49,13 +48,8 @@ requirements:
     - libcurl
     - lz4
     - lsof
-    # you need to make sure that conda-forge is added as lower priority channel
-    # in this case build will take postgresql from conda-forge because dependent postgresql-plpython is only on conda-forge
-    # other packages will be taken from default channels as usual
-    # replacing channel with conda build -c conda-forge does not work
-    # it forces this channel for all the packages and cartridge fails to pass the tests
     - postgresql {{ postgresql }}
-    - postgresql-plpython
+    - postgresql-plpython {{ postgresql }}
     # msys chunk with diffutils is needed for tests
     - msys2-conda-epoch >=20160418 # [win]
     - m2-msys2-runtime # [win]
@@ -69,13 +63,8 @@ requirements:
     # postgresql-plpython is also dragged into dependencies - better to install all extensions together with postgresql
     - python {{ python }}
     - libboost {{ libboost }}
-    # you need to make sure that conda-forge is added as lower priority channel
-    # in this case build will take postgresql from conda-forge because dependent postgresql-plpython is only on conda-forge
-    # other packages will be taken from default channels as usual
-    # replacing channel with conda build -c conda-forge does not work
-    # it forces this channel for all the packages and cartridge fails to pass the tests
     - postgresql {{ postgresql }}
-    - postgresql-plpython
+    - postgresql-plpython {{ postgresql }}
     - freetype
     - tzcode          # [not win]
     - tzdata          # [not win]
