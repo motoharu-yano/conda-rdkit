@@ -3,7 +3,7 @@ python:
   - 3.8
 
 postgresql:
-  - 12.3.2
+  - 12.3.3
 
 libboost:
   - 1.71

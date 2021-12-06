@@ -4,7 +4,7 @@
 
 package:
   name: {{ name|lower }}
-  version: {{ version }}.2
+  version: {{ version }}.3
 
 source:
   - git_url: https://github.com/motoharu-yano/rdkit.git
