@@ -1,7 +1,7 @@
 cd citus_src
 cd code
 
-./configure
+./configure --with-security-flags
 
 make -j$CPU_COUNT
 

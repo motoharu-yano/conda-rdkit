@@ -4,7 +4,7 @@
 
 package:
   name: {{ name|lower }}
-  version: {{ version }}.0.{{ postgresql }}
+  version: {{ version }}.5.{{ postgresql }}
 
 source:
   - git_url: https://github.com/motoharu-yano/rdkit.git
